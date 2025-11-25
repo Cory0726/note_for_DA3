@@ -10,7 +10,13 @@ My notes for Depth-Anything-3
 - **DA3 Metric Series**(`DA3Metric-Large`) A specialized model fine-tuned for metric depth estimation in monocular settings, ideal for applications requiring real-world scale.
 
 ## System setup
+**Python version : <=3.13, >=3.9**
 ### Package installation
-```commandline
-pip install torch\>2=2 torchvision
+```
+# torch, torchvision
+pip install torch==2.9.0 torchvision==0.24.0 --index-url https://download.pytorch.org/whl/cu126
+# xformers
+pip3 install -U xformers --index-url https://download.pytorch.org/whl/cu126
+# depth-anything-3
+pip install -e .
 ```
