@@ -44,3 +44,6 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name
     ```commandline
     pip install triton-3.0.0-cp312-cp312-win_amd64.whl
     ```
+
+## Script
+### run.py
