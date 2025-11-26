@@ -40,5 +40,6 @@ temp*.png
 # Package
 triton-3.0.0-cp312-cp312-win_amd64.whl
 
-# Test images
+# Data
 test_img/
+result_img/
