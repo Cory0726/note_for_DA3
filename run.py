@@ -60,7 +60,7 @@ if __name__ == '__main__':
     print('M1_13_intensity_image.png : ' + array_info(img_8))
 
     predict_depth = predict_raw_depth(model, img_8)
-    print('predict_depth : ' + array_info(predict_depth)
+    print('predict_depth : ' + array_info(predict_depth))
     np.save('result_img/M1_13_intensity_image_predict', predict_depth)
     cv2.imshow('prediction_img', predict_depth)
     cv2.waitKey(0)
