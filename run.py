@@ -54,6 +54,14 @@ def calibrate_depth_ransac(
         (D_tof > min_depth) & (D_tof < max_depth)
     )
     cv2.imwrite('img_process_temp/valid_pixel_mask.png', valid.astype(np.uint8) * 255)
+    # Check the number of valid pixels
+    print('Number of valid pixels: ', valid.sum())
+    if valid.sum() < min_samples:
+        print('[WARNING] Not enough valid pixels for RANSAC calibration. Skipping calibration.')
+        return D_da3.copy()
+    # Extract valid pixels >> flatten to 1D arrays
+    d_da3 = D_da3[valid].astype(np.float32)  # shape (N,)
+    d_tof = D_tof[valid].astype(np.float32)  # shape (N,)
 
 def main():
     # Initialize the DA3 model
@@ -80,5 +88,5 @@ if __name__ == '__main__':
     print('Hand Seg mask : ' + array_info(hand_seg_mask))
 
     # Calibrate the preditct depth to real depth
-    calibrate_depth_ransac(predict_depth,real_depth,hand_seg_mask)
+    calibrate_depth_ransac(predict_depth,tof_depth,hand_seg_mask)
    # main()
