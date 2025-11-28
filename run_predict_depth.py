@@ -32,9 +32,9 @@ def calibrate_depth_ransac(
     D_tof,                      # ToF depth map, shape (H, W), meter
     mask,                       # Mask image, 255 = use pixel, 0 = ignore
     min_depth=0.2,             # Minimum valid depth (meter)
-    max_depth=0.5,              # Maximum valid depth (meter)
-    residual_threshold=0.01,    # RANSAC inlier threshold (meter)
-    min_samples=20000,            # Minimum valid samples for calibration
+    max_depth=0.6,              # Maximum valid depth (meter)
+    residual_threshold=0.001,    # RANSAC inlier threshold (meter)
+    min_samples=3000,            # Minimum valid samples for calibration
     max_trials=1000              # RANSAC iterations
 ):
     """
@@ -85,7 +85,7 @@ def main(input_img_file, tof_depth_file, hand_seg_mask_file, output_depth_file):
     :param input_img_file: Path to grayscale or intensity input image for DA3 prediction.
     :param tof_depth_file: Path to .file containing tof depth in millimeters.
     :param hand_seg_mask_file: Path to segmentation mask (uint8 image with values {255 = hand, 0 = background}).
-    :param output_depth_file: Output path (.npy) for saving the calibrated depth map (meters).
+    :param output_depth_file: Output path (.npy) for saving the calibrated depth map (millimeters).
     """
     # ==================================================
     # Predict the raw depth by Depth-Anything-3 model
@@ -111,15 +111,15 @@ def main(input_img_file, tof_depth_file, hand_seg_mask_file, output_depth_file):
     hand_seg_mask = cv2.imread(hand_seg_mask_file, cv2.IMREAD_UNCHANGED)  # [255, 0]
     print('Hand Seg mask : ' + array_info(hand_seg_mask))
     # Calibrate the predicted raw depth
-    calibrate_depth = calibrate_depth_ransac(predicted_depth, tof_depth, hand_seg_mask)
+    calibrate_depth = calibrate_depth_ransac(predicted_depth, tof_depth, hand_seg_mask) * 1000  # Unit : mm
     print('Calibrated depth : ' + array_info(calibrate_depth))
     # Save the calibrated depth as .npy
     np.save(output_depth_file, calibrate_depth)
 
 if __name__ == '__main__':
     main(
-        input_img_file='test_img/M1_01_intensity_image.png',
-        tof_depth_file='test_img/M1_01_raw_depth.npy',
-        hand_seg_mask_file='test_img/M1_01_mask.png',
-        output_depth_file='result_img/M1_01_predicted_depth_with_calibration.npy'
+        input_img_file='test_img/M1_08_intensity_image.png',
+        tof_depth_file='test_img/M1_08_raw_depth.npy',
+        hand_seg_mask_file='test_img/M1_08_mask.png',
+        output_depth_file='result_img/M1_08_predicted_depth_with_calibration.npy'
     )
