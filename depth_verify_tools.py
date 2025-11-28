@@ -115,5 +115,5 @@ def inspect_depth_pair(input_depth_1, input_depth_2):
 if __name__ == "__main__":
     inspect_depth_pair(
         input_depth_1='test_img/M1_08_raw_depth.npy',
-        input_depth_2='result_img/M1_08_predicted_depth_with_calibration.npy',
+        input_depth_2='result_img/M1_08_predicted_depth_with_calibration_method5.npy',
     )

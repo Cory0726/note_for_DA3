@@ -52,3 +52,4 @@ New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name
 
 ## Script
 ### run_predict_depth.py
+**Note** : Monocular Metric Depth: To obtain metric depth in meters from DA3METRIC-LARGE, use metric_depth = focal * net_output / 300., where focal is the focal length in pixels (typically the average of fx and fy from the camera intrinsic matrix K). Note that the output from DA3NESTED-GIANT-LARGE is already in meters. 

@@ -118,7 +118,7 @@ def main(input_img_file, tof_depth_file, hand_seg_mask_file, output_depth_file):
     model = da3_model_initial()
     # Load original image for DA3 model predict
     img = cv2.imread(input_img_file, cv2.IMREAD_GRAYSCALE)
-    print('Original image for DA3 predict : ' + array_info(img))
+    # print('Original image for DA3 predict : ' + array_info(img))
     # Predicted raw depth
     predicted_depth = predict_da3_depth(model, img)
     print('Predicted raw depth by DA3 model : ' + array_info(predicted_depth))
@@ -146,13 +146,19 @@ def main(input_img_file, tof_depth_file, hand_seg_mask_file, output_depth_file):
     # Save the calibrated depth as .npy
     np.save(output_depth_file, calibrate_depth)
     print(f'Save : {output_depth_file}')
+    cv2.imshow('img', depth_to_color(calibrate_depth))
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-
+    # img = np.load('test_img/M1_08_raw_depth.npy')
+    # cv2.imwrite('test_img/M1_08_depth_heatmap.png', depth_to_color(img))
+    # print('Original img shape:', img.shape, img.dtype, img.max(), img.min())
 
     main(
-        input_img_file='test_img/M1_08_intensity_image.png',
+        input_img_file='test_img/M1_08_predicted_raw_depth_1.png',
         tof_depth_file='test_img/M1_08_raw_depth.npy',
         hand_seg_mask_file='test_img/M1_08_mask.png',
-        output_depth_file='result_img/M1_08_predicted_depth_with_calibration.npy'
+        output_depth_file='result_img/M1_08_predicted_depth_with_calibration_method5.npy'
     )
+
