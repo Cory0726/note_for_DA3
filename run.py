@@ -53,11 +53,7 @@ def calibrate_depth_ransac(
         (D_da3 > min_depth) & (D_da3 < max_depth) &
         (D_tof > min_depth) & (D_tof < max_depth)
     )
-
-    print(array_info(valid))
-    cv2.imshow('mask', valid.astype(np.uint8) * 255)
-    print(array_info(valid))
-    cv2.waitKey(0)
+    cv2.imwrite('img_process_temp/valid_pixel_mask.png', valid.astype(np.uint8) * 255)
 
 def main():
     # Initialize the DA3 model
@@ -73,13 +69,16 @@ def main():
     np.save('result_img/M1_08_predict_depth', predict_depth)
 
 if __name__ == '__main__':
-    real_depth = (np.load('test_img/M1_01_raw_depth.npy') / 1000)
-    print('real depth : ' + array_info(real_depth))
-    predict_depth = np.load('result_img/M1_01_predict_depth.npy')
-    print('predict_depth : ' + array_info(predict_depth))
-    handseg_mask = cv2.imread('test_img/M1_01_mask.png', cv2.IMREAD_UNCHANGED)
-    print('handseg_mask : ' + array_info(handseg_mask))
+    # Load the ToF raw depth
+    tof_depth = (np.load('test_img/M1_01_raw_depth.npy') / 1000)  # Unit : m
+    print('ToF depth : ' + array_info(tof_depth))
+    # Load the predicted depth
+    predict_depth = np.load('result_img/M1_01_predict_depth.npy')  # Unit : m
+    print('Predict depth : ' + array_info(predict_depth))
+    # Load the mask of hand segmentation
+    hand_seg_mask = cv2.imread('test_img/M1_01_mask.png', cv2.IMREAD_UNCHANGED)  # [255, 0]
+    print('Hand Seg mask : ' + array_info(hand_seg_mask))
 
     # Calibrate the preditct depth to real depth
-    calibrate_depth_ransac(predict_depth,real_depth,handseg_mask)
+    calibrate_depth_ransac(predict_depth,real_depth,hand_seg_mask)
    # main()
