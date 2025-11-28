@@ -22,10 +22,15 @@ My notes for Depth-Anything-3
 ```
 # torch, torchvision
 pip install torch==2.9.0 torchvision==0.24.0 --index-url https://download.pytorch.org/whl/cu126
+
 # xformers
 pip3 install -U xformers --index-url https://download.pytorch.org/whl/cu126
+
 # depth-anything-3
 pip install -e .
+
+# scikit-learn
+pip install scikit-learn
 ```
 ### Issue
 #### Enable long paths in Windows 10, version 1607, and later
