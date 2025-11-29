@@ -11,7 +11,10 @@ def da3_model_initial():
     :return: Depth-anything 3 model
     """
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = DepthAnything3.from_pretrained('depth-anything/da3metric-large')
+    #
+    model = DepthAnything3.from_pretrained('depth-anything/da3metric-large')  # DA3METRIC-LARGE Model
+    # model = DepthAnything3.from_pretrained('depth-anything/da3nested-giant-large')  # DA3NESTED-GIANT-LARGE Model
+    # model = DepthAnything3.from_pretrained('depth-anything/da3-giant')  # DA3-GIANT Model
     model = model.to(device)
     return model
 
@@ -118,7 +121,7 @@ def main(input_img_file, tof_depth_file, hand_seg_mask_file, output_depth_file):
     model = da3_model_initial()
     # Load original image for DA3 model predict
     img = cv2.imread(input_img_file, cv2.IMREAD_GRAYSCALE)
-    print('Original image for DA3 predict : ' + array_info(img))
+    # print('Original image for DA3 predict : ' + array_info(img))
     # Predicted raw depth
     predicted_depth = predict_da3_depth(model, img)
     print('Predicted raw depth by DA3 model : ' + array_info(predicted_depth))
@@ -146,13 +149,15 @@ def main(input_img_file, tof_depth_file, hand_seg_mask_file, output_depth_file):
     # Save the calibrated depth as .npy
     np.save(output_depth_file, calibrate_depth)
     print(f'Save : {output_depth_file}')
+    cv2.imshow('img', depth_to_color(calibrate_depth))
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-
-
     main(
         input_img_file='test_img/M1_08_intensity_image.png',
         tof_depth_file='test_img/M1_08_raw_depth.npy',
         hand_seg_mask_file='test_img/M1_08_mask.png',
-        output_depth_file='result_img/M1_08_predicted_depth_with_calibration.npy'
+        output_depth_file='result_img/M1_08_predicted_depth.npy'
     )
+
