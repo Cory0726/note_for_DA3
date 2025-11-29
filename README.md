@@ -3,6 +3,7 @@ My notes for Depth-Anything-3
 
 - [Reference](#reference)
 - [Introduction](#introduction)
+  - [Model Card](#model-card)
 - [System setup](#system-setup)
   - [Python version](#python-version--39--313)
   - [Package](#package-installation)
@@ -14,6 +15,8 @@ My notes for Depth-Anything-3
 
 ## Introduction
 - DA3 significantly outperforms **DA2** for monocular depth estimation, and **VGGT** for multi-view depth estimation and pose estimation.
+
+### [Model Card](https://github.com/ByteDance-Seed/Depth-Anything-3?tab=readme-ov-file#%EF%B8%8F-model-cards)
 - **DA3 Metric Series**(`DA3Metric-Large`) A specialized model fine-tuned for metric depth estimation in monocular settings, ideal for applications requiring real-world scale.
 
 ## System setup

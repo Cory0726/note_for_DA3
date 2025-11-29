@@ -11,7 +11,8 @@ def da3_model_initial():
     :return: Depth-anything 3 model
     """
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = DepthAnything3.from_pretrained('depth-anything/da3metric-large')
+    # model = DepthAnything3.from_pretrained('depth-anything/da3metric-large')  # DA3 Metric Large Model
+    model = DepthAnything3.from_pretrained('depth-anything/da3nested-giant-large')  # DA3 Nested Giant Large Model
     model = model.to(device)
     return model
 
@@ -156,9 +157,9 @@ if __name__ == '__main__':
     # print('Original img shape:', img.shape, img.dtype, img.max(), img.min())
 
     main(
-        input_img_file='test_img/M1_08_predicted_raw_depth_1.png',
+        input_img_file='test_img/M1_08_intensity_image.png',
         tof_depth_file='test_img/M1_08_raw_depth.npy',
         hand_seg_mask_file='test_img/M1_08_mask.png',
-        output_depth_file='result_img/M1_08_predicted_depth_with_calibration_method5.npy'
+        output_depth_file='result_img/M1_08_predicted_depth_with_calibration_method4.npy'
     )
 
