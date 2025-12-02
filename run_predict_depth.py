@@ -155,9 +155,9 @@ def main(input_img_file, tof_depth_file, hand_seg_mask_file, output_depth_file):
 
 if __name__ == '__main__':
     main(
-        input_img_file='test_img/M1_08_intensity_image.png',
-        tof_depth_file='test_img/M1_08_raw_depth.npy',
-        hand_seg_mask_file='test_img/M1_08_mask.png',
-        output_depth_file='result_img/M1_08_predicted_depth.npy'
+        input_img_file='test_img/M1_01_intensity_image.png',
+        tof_depth_file='test_img/M1_01_raw_depth.npy',
+        hand_seg_mask_file='test_img/M1_01_mask.png',
+        output_depth_file='result_img/M1_01_predicted_depth.npy'
     )
 
